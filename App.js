@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList, SafeAreaView  } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView,ScrollView  } from 'react-native';
 import React, {useState} from 'react';
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -22,20 +22,30 @@ export default function App() {
       return [{ task: text, id: uuidv4() }, ...prevTasks]
     })
   }
+  const deleteTask = id =>{
+    setTask(prevTasks =>{
+      return prevTasks.filter(task=>task.id !=id)
+    })
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Header />
+      <ScrollView>
       <View style={styles.content}>
       <AddTask addTask={addTask} />
         <View style={styles.list}>
+          
       <FlatList 
       data={task}
       renderItem={({item})=>(
-       <Task item={item}/>
+       <Task item={item}
+       deleteTask={deleteTask}/>
       )}
       />
       </View>
       </View>
+      </ScrollView>
+
      
     </SafeAreaView>
   );
