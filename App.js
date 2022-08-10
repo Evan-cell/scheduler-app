@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 import React, {useState} from 'react';
 export default function App() {
   const [task, setTask] = useState(
@@ -15,7 +15,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.content}></View>
-      <Text>Pomodoro</Text>
+      <FlatList 
+      data={task}
+      renderItem={({item})=>(
+        <Text>{item.task}</Text>
+      )}
+      />
       <StatusBar style="auto" />
     </View>
   );
